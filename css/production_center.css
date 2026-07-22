@@ -1,0 +1,942 @@
+/* FARM LEGACY - Centro de Producción - Patch 44.35 */
+.production-center-screen{
+  position:relative;
+  min-height:100vh;
+  padding:18px 18px 34px;
+  overflow:auto;
+  color:#3c2412;
+  background:
+    linear-gradient(180deg, rgba(20,13,7,.35), rgba(14,9,5,.72)),
+    url("../assets/images/ui/farm_map_43_1.png") center/cover fixed no-repeat;
+}
+
+.production-center-bg{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255,220,139,.16), transparent 28%),
+    linear-gradient(90deg, rgba(0,0,0,.34), transparent 18%, transparent 82%, rgba(0,0,0,.34));
+}
+
+.production-center-shell{
+  position:relative;
+  z-index:1;
+  width:min(1280px, 96vw);
+  margin:0 auto;
+}
+
+.production-center-topbar{
+  display:grid;
+  grid-template-columns:160px 1fr 110px;
+  align-items:center;
+  gap:18px;
+  padding:14px 16px;
+  margin-bottom:14px;
+  border:1px solid rgba(199,146,71,.82);
+  border-radius:20px;
+  background:linear-gradient(180deg, rgba(76,45,22,.97), rgba(37,21,10,.98));
+  box-shadow:0 18px 36px rgba(0,0,0,.32), inset 0 1px 0 rgba(255,236,184,.10);
+}
+
+.production-center-titlebox{
+  text-align:center;
+  color:#f7e8c4;
+}
+.production-center-kicker,
+.production-section-kicker,
+.production-card-kicker{
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.production-center-kicker{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  padding:0 11px;
+  border-radius:999px;
+  color:#f6efd7;
+  background:linear-gradient(180deg, #789155, #4d6735);
+  border:1px solid rgba(222,241,186,.18);
+  font-size:10px;
+}
+.production-center-titlebox h1{
+  margin:7px 0 2px;
+  color:#f7dfac;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:clamp(34px, 4vw, 54px);
+  line-height:1;
+  text-shadow:0 3px 0 rgba(35,17,7,.9);
+}
+.production-center-titlebox p{
+  margin:6px 0 0;
+  color:#f3e7cb;
+  font-size:15px;
+}
+.production-center-brand-icon{
+  width:88px;
+  height:88px;
+  justify-self:end;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(248,232,194,.96), rgba(216,186,130,.96));
+  border:1px solid rgba(199,146,71,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.52), 0 10px 18px rgba(0,0,0,.18);
+}
+.production-center-brand-icon img{
+  width:68px;
+  height:68px;
+  object-fit:contain;
+}
+
+.production-summary-grid{
+  display:grid;
+  grid-template-columns:repeat(4, minmax(0, 1fr));
+  gap:12px;
+  margin-bottom:12px;
+}
+.production-summary-card{
+  min-height:112px;
+  padding:15px 16px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5px;
+  border-radius:18px;
+  border:1px solid rgba(189,137,67,.52);
+  color:#4a2a14;
+  background:linear-gradient(180deg, rgba(250,241,218,.99), rgba(231,211,169,.99));
+  box-shadow:0 12px 22px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.54);
+}
+.production-summary-card > span{
+  color:#7b572f;
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+}
+.production-summary-card > strong{
+  color:#3f2512;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:38px;
+  line-height:1;
+}
+.production-summary-card small{
+  color:#6a4828;
+  font-size:12px;
+  font-weight:700;
+}
+.production-summary-card.has-ready{
+  border-color:#7f9d52;
+  background:linear-gradient(180deg, #eef3d7, #cfdda9);
+}
+.production-summary-card.has-ready > strong,
+.production-summary-card.ok > strong{ color:#4f762e; }
+.production-summary-card.warning > strong{ color:#a06b22; }
+.production-summary-card.danger > strong{ color:#a3402f; }
+
+.production-tabs{
+  display:flex;
+  gap:8px;
+  padding:8px;
+  margin-bottom:12px;
+  overflow:auto;
+  border-radius:17px;
+  border:1px solid rgba(191,140,72,.68);
+  background:linear-gradient(180deg, rgba(76,45,22,.98), rgba(40,23,11,.99));
+  box-shadow:0 12px 24px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,236,184,.08);
+}
+.production-tabs button{
+  min-height:42px;
+  padding:0 15px;
+  flex:1 0 max-content;
+  border-radius:12px;
+  border:1px solid transparent;
+  color:#ecd9b2;
+  background:rgba(255,255,255,.04);
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.6px;
+  cursor:pointer;
+}
+.production-tabs button span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:22px;
+  height:22px;
+  margin-left:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.10);
+  color:#fff0ca;
+}
+.production-tabs button:hover,
+.production-tabs button.active{
+  color:#fff6de;
+  border-color:rgba(192,222,136,.42);
+  background:linear-gradient(180deg, #789155, #4d6735);
+}
+
+.production-tab-content{
+  border-radius:22px;
+  border:1px solid rgba(191,140,72,.68);
+  padding:16px;
+  background:linear-gradient(180deg, rgba(247,235,207,.99), rgba(225,202,157,.99));
+  box-shadow:0 18px 36px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.54);
+}
+
+.production-ready-banner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:14px 16px;
+  margin-bottom:14px;
+  border-radius:16px;
+  color:#edf5d8;
+  background:linear-gradient(180deg, #6f8e46, #45642f);
+  border:1px solid rgba(72,107,42,.72);
+  box-shadow:0 10px 20px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.12);
+}
+.production-ready-banner div{
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+.production-ready-banner span{
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  opacity:.82;
+}
+.production-ready-banner strong{
+  font-size:17px;
+}
+.production-ready-banner button,
+.production-overview-section > header button{
+  min-height:38px;
+  padding:0 13px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.18);
+  color:#fff4d8;
+  background:rgba(41,70,29,.38);
+  font-weight:900;
+  cursor:pointer;
+}
+
+.production-overview-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+.production-overview-section{
+  min-width:0;
+  padding:14px;
+  border-radius:18px;
+  border:1px solid rgba(183,132,67,.38);
+  background:rgba(255,248,230,.62);
+}
+.production-overview-section > header,
+.production-ready-section > header,
+.production-tab-intro{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+}
+.production-overview-section > header{
+  margin-bottom:12px;
+}
+.production-overview-section h2,
+.production-ready-section h2,
+.production-tab-intro h2{
+  margin:4px 0 0;
+  color:#3d2412;
+  font-family:Georgia, "Times New Roman", serif;
+}
+.production-overview-section h2{ font-size:24px; }
+.production-section-kicker,
+.production-card-kicker{
+  color:#6a8249;
+  font-size:10px;
+}
+.production-overview-section > header button{
+  color:#5a391e;
+  background:#ead4a4;
+  border-color:rgba(144,94,42,.32);
+}
+
+.production-animal-list,
+.production-machine-list{
+  display:grid;
+  gap:10px;
+}
+.production-animal-list.full-list,
+.production-machine-list.full-list{
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+
+.production-animal-card,
+.production-machine-card{
+  overflow:hidden;
+  border-radius:17px;
+  border:1px solid rgba(183,132,67,.42);
+  background:linear-gradient(180deg, #fff8e8, #ecd5a6);
+  box-shadow:0 10px 18px rgba(0,0,0,.10), inset 0 1px 0 rgba(255,255,255,.56);
+}
+.production-animal-card.compact,
+.production-machine-card.compact{
+  display:grid;
+  grid-template-columns:118px 1fr;
+}
+.production-animal-image,
+.production-machine-image{
+  position:relative;
+  min-height:160px;
+  overflow:hidden;
+  background:#d5b77e;
+}
+.production-animal-card.compact .production-animal-image,
+.production-machine-card.compact .production-machine-image{
+  min-height:138px;
+}
+.production-animal-image img,
+.production-machine-image img{
+  width:100%;
+  height:100%;
+  min-height:inherit;
+  object-fit:cover;
+  display:block;
+}
+.production-animal-image::after,
+.production-machine-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, transparent 55%, rgba(29,16,7,.48));
+  pointer-events:none;
+}
+.production-animal-image > span,
+.production-state-pill{
+  position:absolute;
+  z-index:2;
+  left:8px;
+  bottom:8px;
+  display:inline-flex;
+  align-items:center;
+  min-height:25px;
+  padding:0 9px;
+  border-radius:999px;
+  color:#fff0cf;
+  background:rgba(50,29,14,.86);
+  border:1px solid rgba(255,222,157,.20);
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.production-state-pill.state-produciendo,
+.production-state-pill.state-listo{
+  background:#50723a;
+}
+.production-state-pill.state-construyendo{
+  background:#8b642b;
+}
+.production-state-pill.state-sin-construir{
+  background:#6b5743;
+}
+
+.production-animal-copy,
+.production-machine-copy{
+  padding:13px;
+  min-width:0;
+}
+.production-animal-copy h3,
+.production-machine-copy h3,
+.production-ready-copy h3{
+  margin:4px 0 8px;
+  color:#3e2512;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:24px;
+  line-height:1.05;
+}
+.production-output-main{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border-radius:12px;
+  background:rgba(255,255,255,.52);
+  border:1px solid rgba(183,132,67,.24);
+}
+.production-output-main > span{
+  font-size:30px;
+}
+.production-output-main div{
+  display:flex;
+  flex-direction:column;
+}
+.production-output-main strong{
+  color:#4d722f;
+  font-size:26px;
+  line-height:1;
+}
+.production-output-main small{
+  margin-top:3px;
+  color:#6d4b2b;
+  font-size:11px;
+  font-weight:700;
+}
+.production-mini-stats{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:6px;
+  margin:9px 0;
+}
+.production-mini-stats div{
+  padding:7px 6px;
+  text-align:center;
+  border-radius:10px;
+  background:rgba(255,255,255,.42);
+  border:1px solid rgba(183,132,67,.20);
+}
+.production-mini-stats span,
+.production-machine-output span,
+.production-progress-row span{
+  display:block;
+  color:#7b5730;
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.7px;
+  text-transform:uppercase;
+}
+.production-mini-stats strong{
+  display:block;
+  margin-top:2px;
+  color:#3f2512;
+  font-size:16px;
+}
+
+.production-machine-copy > p{
+  min-height:40px;
+  margin:0 0 8px;
+  color:#5d3d21;
+  font-size:13px;
+  line-height:1.35;
+  font-weight:700;
+}
+.production-machine-output{
+  padding:9px 10px;
+  border-radius:11px;
+  background:rgba(255,255,255,.48);
+  border:1px solid rgba(183,132,67,.22);
+}
+.production-machine-output strong{
+  display:block;
+  margin-top:3px;
+  color:#3f2512;
+  font-size:16px;
+}
+.production-progress-row{
+  margin:9px 0;
+}
+.production-progress-row > div:first-child{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+.production-progress-row > div:first-child strong{
+  color:#4e6f31;
+  font-size:13px;
+}
+.production-progress-track{
+  height:9px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#c8ad7b;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,.18);
+}
+.production-progress-track i{
+  display:block;
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg, #648c3e, #9fc65f);
+}
+
+.production-primary-btn,
+.production-secondary-btn{
+  width:100%;
+  min-height:40px;
+  padding:8px 12px;
+  border-radius:11px;
+  font-family:"Trebuchet MS", Arial, sans-serif;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.4px;
+  cursor:pointer;
+}
+.production-secondary-btn{
+  color:#fff1d0;
+  border:1px solid rgba(83,48,21,.62);
+  background:linear-gradient(180deg, #79502b, #4e2d16);
+}
+.production-primary-btn.collect{
+  color:#f4ffe8;
+  border:1px solid rgba(47,93,31,.72);
+  background:linear-gradient(180deg, #78b14e, #4f8133);
+}
+.production-primary-btn:hover,
+.production-secondary-btn:hover{
+  filter:brightness(1.06);
+  transform:translateY(-1px);
+}
+
+.production-ready-section{
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px solid rgba(153,104,50,.24);
+}
+.production-ready-section > header{
+  margin-bottom:10px;
+}
+.production-ready-list{
+  display:grid;
+  gap:10px;
+}
+.production-ready-card{
+  display:grid;
+  grid-template-columns:110px 1fr 150px;
+  align-items:center;
+  gap:12px;
+  padding:10px;
+  border-radius:15px;
+  border:1px solid rgba(112,144,68,.46);
+  background:linear-gradient(180deg, #f2f4dc, #d8e1b5);
+}
+.production-ready-image{
+  height:82px;
+  overflow:hidden;
+  border-radius:11px;
+  background:#d1bb8c;
+}
+.production-ready-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.production-ready-copy h3{
+  margin-bottom:4px;
+  font-size:20px;
+}
+.production-ready-copy p{
+  margin:0;
+  color:#536136;
+  font-size:13px;
+  line-height:1.35;
+}
+
+.production-tab-intro{
+  align-items:center;
+  margin-bottom:14px;
+  padding:14px 16px;
+  border-radius:15px;
+  border:1px solid rgba(183,132,67,.30);
+  background:rgba(255,248,230,.58);
+}
+.production-tab-intro h2{
+  font-size:28px;
+}
+.production-tab-intro > p{
+  max-width:430px;
+  margin:0;
+  color:#6a4828;
+  font-size:13px;
+  line-height:1.4;
+  text-align:right;
+}
+
+.production-empty-state{
+  padding:48px 20px;
+  text-align:center;
+  border-radius:18px;
+  border:1px dashed rgba(130,87,40,.40);
+  background:rgba(255,248,230,.52);
+}
+.production-empty-mark{
+  width:64px;
+  height:64px;
+  margin:0 auto 12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  color:#f5e9c8;
+  background:linear-gradient(180deg, #718b4d, #496333);
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:20px;
+  font-weight:900;
+}
+.production-empty-state h3{
+  margin:0 0 7px;
+  color:#3d2412;
+  font-family:Georgia, "Times New Roman", serif;
+  font-size:26px;
+}
+.production-empty-state p{
+  max-width:520px;
+  margin:0 auto 14px;
+  color:#6a4828;
+  line-height:1.4;
+}
+.production-empty-state .production-secondary-btn{
+  width:auto;
+  min-width:190px;
+}
+
+@media (max-width:1100px){
+  .production-summary-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .production-overview-grid{ grid-template-columns:1fr; }
+  .production-animal-list.full-list,
+  .production-machine-list.full-list{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width:760px){
+  .production-center-screen{ padding:8px 6px 22px; }
+  .production-center-shell{ width:calc(100vw - 8px); }
+  .production-center-topbar{
+    grid-template-columns:1fr;
+    text-align:center;
+    padding:12px;
+  }
+  .production-center-topbar .back-wood-btn{ justify-self:start; }
+  .production-center-brand-icon{ display:none; }
+  .production-center-titlebox h1{ font-size:36px; }
+  .production-summary-grid{ grid-template-columns:1fr 1fr; gap:8px; }
+  .production-summary-card{ min-height:100px; padding:12px; }
+  .production-summary-card > strong{ font-size:31px; }
+  .production-tab-content{ padding:10px; }
+  .production-ready-banner{ align-items:flex-start; flex-direction:column; }
+  .production-ready-banner button{ width:100%; }
+  .production-animal-list.full-list,
+  .production-machine-list.full-list{ grid-template-columns:1fr; }
+  .production-animal-card.compact,
+  .production-machine-card.compact{ grid-template-columns:96px 1fr; }
+  .production-animal-card.compact .production-animal-image,
+  .production-machine-card.compact .production-machine-image{ min-height:150px; }
+  .production-ready-card{ grid-template-columns:82px 1fr; }
+  .production-ready-card .production-primary-btn{ grid-column:1 / -1; }
+  .production-tab-intro{ align-items:flex-start; flex-direction:column; }
+  .production-tab-intro > p{ text-align:left; }
+}
+
+@media (max-width:480px){
+  .production-summary-grid{ grid-template-columns:1fr; }
+  .production-animal-card.compact,
+  .production-machine-card.compact{ grid-template-columns:1fr; }
+  .production-animal-card.compact .production-animal-image,
+  .production-machine-card.compact .production-machine-image{ min-height:180px; }
+}
+
+
+/* =====================================================
+   PATCH 44.36 - Producción: layout y primer toque
+   - Más aire y mejor jerarquía entre bloques.
+   - Imágenes de animales y máquinas dejan de verse apretadas.
+   - Tarjetas del resumen organizadas para crecer mejor.
+   ===================================================== */
+
+.production-center-shell{
+  width:min(1360px, 97vw);
+}
+
+.production-center-topbar{
+  grid-template-columns:170px minmax(0, 1fr) 96px;
+  padding:15px 18px;
+}
+
+.production-center-brand-icon{
+  width:76px;
+  height:76px;
+  border-radius:16px;
+}
+.production-center-brand-icon img{
+  width:58px;
+  height:58px;
+}
+
+.production-summary-grid{
+  gap:14px;
+  margin-bottom:14px;
+}
+.production-summary-card{
+  min-height:104px;
+  padding:14px 17px;
+}
+
+.production-tab-content{
+  padding:18px;
+}
+
+/* En el resumen, cada familia ocupa una franja completa y sus tarjetas respiran. */
+.production-overview-grid{
+  grid-template-columns:1fr;
+  gap:16px;
+}
+.production-overview-section{
+  padding:16px;
+}
+.production-overview-section > header{
+  align-items:center;
+  margin-bottom:14px;
+}
+.production-overview-section > header button{
+  min-width:112px;
+}
+
+.production-overview-section .compact-list{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:14px;
+}
+
+/* Tarjetas compactas: imagen arriba en vez de una columna estrecha al costado. */
+.production-overview-section .production-animal-card.compact,
+.production-overview-section .production-machine-card.compact{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  height:100%;
+}
+
+.production-overview-section .production-animal-card.compact .production-animal-image{
+  min-height:178px;
+  height:178px;
+}
+.production-overview-section .production-machine-card.compact .production-machine-image{
+  min-height:190px;
+  height:190px;
+  padding:10px;
+  background:linear-gradient(180deg, #efe0bb, #d9bd82);
+}
+
+.production-overview-section .production-machine-card.compact .production-machine-image img{
+  object-fit:contain;
+  padding:4px;
+}
+
+.production-overview-section .production-animal-copy,
+.production-overview-section .production-machine-copy{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:14px;
+}
+
+.production-overview-section .production-animal-copy > .production-secondary-btn,
+.production-overview-section .production-machine-copy > .production-secondary-btn,
+.production-overview-section .production-machine-copy > .production-primary-btn{
+  margin-top:auto;
+}
+
+/* Vista completa de Animales/Maquinarias */
+.production-animal-list.full-list,
+.production-machine-list.full-list{
+  grid-template-columns:repeat(3, minmax(280px, 1fr));
+  gap:16px;
+}
+
+.production-animal-list.full-list .production-animal-card,
+.production-machine-list.full-list .production-machine-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+.production-animal-list.full-list .production-animal-image{
+  min-height:210px;
+  height:210px;
+}
+.production-machine-list.full-list .production-machine-image{
+  min-height:220px;
+  height:220px;
+  padding:12px;
+  background:linear-gradient(180deg, #efe0bb, #d9bd82);
+}
+.production-machine-list.full-list .production-machine-image img{
+  object-fit:contain;
+  padding:5px;
+}
+.production-animal-list.full-list .production-animal-copy,
+.production-machine-list.full-list .production-machine-copy{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  padding:15px;
+}
+.production-animal-list.full-list .production-secondary-btn,
+.production-machine-list.full-list .production-secondary-btn,
+.production-machine-list.full-list .production-primary-btn{
+  margin-top:auto;
+}
+
+/* Imágenes: animales llenan el marco; máquinas se muestran completas. */
+.production-animal-image img{
+  object-position:center center;
+}
+.production-machine-image img{
+  object-fit:contain;
+  object-position:center center;
+}
+
+/* Más espacio entre texto, datos y acciones. */
+.production-animal-copy h3,
+.production-machine-copy h3{
+  margin-bottom:10px;
+}
+.production-output-main,
+.production-machine-output{
+  margin-bottom:8px;
+}
+.production-mini-stats{
+  margin:10px 0 12px;
+}
+.production-machine-copy > p{
+  min-height:auto;
+  margin-bottom:10px;
+}
+.production-progress-row{
+  margin:10px 0 12px;
+}
+
+.production-primary-btn,
+.production-secondary-btn,
+.production-ready-banner button,
+.production-overview-section > header button,
+.production-tabs button{
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+}
+
+.production-ready-list{
+  gap:12px;
+}
+.production-ready-card{
+  grid-template-columns:140px minmax(0, 1fr) 170px;
+  gap:16px;
+  padding:12px;
+}
+.production-ready-image{
+  height:100px;
+  padding:6px;
+}
+.production-ready-image img{
+  object-fit:contain;
+}
+
+@media (max-width:1180px){
+  .production-overview-section .compact-list{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+  .production-animal-list.full-list,
+  .production-machine-list.full-list{
+    grid-template-columns:repeat(2, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width:760px){
+  .production-center-shell{
+    width:calc(100vw - 8px);
+  }
+  .production-overview-section .compact-list,
+  .production-animal-list.full-list,
+  .production-machine-list.full-list{
+    grid-template-columns:1fr;
+  }
+  .production-overview-section .production-animal-card.compact .production-animal-image,
+  .production-overview-section .production-machine-card.compact .production-machine-image,
+  .production-animal-list.full-list .production-animal-image,
+  .production-machine-list.full-list .production-machine-image{
+    min-height:220px;
+    height:220px;
+  }
+  .production-ready-card{
+    grid-template-columns:100px minmax(0, 1fr);
+  }
+  .production-ready-card .production-primary-btn{
+    grid-column:1 / -1;
+  }
+}
+
+@media (max-width:480px){
+  .production-overview-section .production-animal-card.compact,
+  .production-overview-section .production-machine-card.compact{
+    display:flex;
+  }
+  .production-overview-section .production-animal-card.compact .production-animal-image,
+  .production-overview-section .production-machine-card.compact .production-machine-image{
+    min-height:200px;
+    height:200px;
+  }
+}
+
+
+/* =====================================================
+   PATCH 44.37 - Producción: scroll interno estable
+   - El juego bloquea el scroll global en html/body.
+   - Producción recibe su propio viewport desplazable.
+   - Se permite pan vertical en touch sin afectar botones.
+   ===================================================== */
+.screen.production-center-screen,
+.production-center-screen.active{
+  height:100vh !important;
+  height:100dvh !important;
+  min-height:0 !important;
+  max-height:100vh !important;
+  max-height:100dvh !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  overscroll-behavior-y:contain;
+  -webkit-overflow-scrolling:touch;
+  touch-action:pan-y;
+  scrollbar-gutter:stable;
+}
+
+.production-center-shell{
+  min-height:max-content;
+  padding-bottom:calc(34px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Los controles siguen respondiendo como botones, pero el resto de la pantalla
+   conserva el gesto vertical de desplazamiento. */
+.production-primary-btn,
+.production-secondary-btn,
+.production-ready-banner button,
+.production-overview-section > header button,
+.production-tabs button,
+.production-center-topbar button{
+  touch-action:manipulation;
+}
+
+@media (max-width:760px){
+  .screen.production-center-screen,
+  .production-center-screen.active{
+    padding-bottom:calc(24px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .production-center-shell{
+    padding-bottom:calc(42px + env(safe-area-inset-bottom, 0px));
+  }
+}
